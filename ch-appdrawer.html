@@ -1,0 +1,194 @@
+<link rel="import" href="../polymer/polymer-micro.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../iron-list/iron-list.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../app-layout/app-scroll-effects/app-scroll-effects.html">
+
+<link rel="import" href="../app-layout/app-layout.html">
+<link rel="import" href="../app-layout/demo/sample-content.html">
+
+
+<dom-module id="ch-appdrawer">
+  <template>
+    <style>
+
+      body {
+        margin: 0;
+        font-family: 'Roboto', 'Noto', sans-serif;
+        background-color: #eee;
+      }
+
+      /*app-header {*/
+      /*background-color: #4285f4;*/
+      /*color: #fff;*/
+      /*}*/
+
+      app-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 440px;
+        color: #fff;
+        background-color: #3f51b5;
+        background-image: url(//app-layout-assets.appspot.com/assets/bg3.jpg);
+        background-position: bottom center;
+        background-size: cover;
+
+        --app-header-background-front-layer: {
+          background: -webkit-linear-gradient(top, transparent 0%, transparent 50%, rgba(0,0,0,0.5) 100%);
+        };
+
+        --app-header-background-rear-layer: {
+          background-color: #303f9f;
+        };
+      }
+
+      app-header paper-icon-button {
+        --paper-icon-button-ink-color: #fff;
+      }
+
+      app-drawer-layout {
+        --app-drawer-layout-content-transition: margin 0.8s;
+      }
+
+      app-drawer {
+        --app-drawer-content-container: {
+          background-color: #eee;
+        }
+      }
+
+      .mainHeader [main-title] {
+        font-weight: 300;
+        position: absolute;
+        bottom: 40px;
+        left: 180px;
+        font-size: 45px;
+        margin: 0;
+      }
+
+      .mainHeader [condensed-title] {
+        font-weight: 400;
+        margin-left: 50px;
+      }
+
+      .mainHeader [condensed-title] i {
+        font-style: normal;
+        font-weight: 100;
+      }
+
+      .drawer-content {
+        margin-top: 150px;
+        height: calc(100% - 80px);
+        overflow: auto;
+      }
+
+
+      .top-menu{
+        font-weight: 400;
+        margin-left: 100px;
+        width:100%;
+      }
+
+
+    </style>
+
+
+
+    <app-header-layout>
+
+      <app-header id="mainHeader" class="mainHeader" condenses fixed effects="waterfall resize-title blend-background parallax-background ">
+
+
+        <app-toolbar style="background-color: #4285f4">
+          <content select="#top-menu"></content>
+        </app-toolbar>
+
+        <app-toolbar>
+          <h4 condensed-title></h4>
+        </app-toolbar>
+
+        <app-toolbar id="tallheader" class="tall">
+
+          <h1 main-title>What is material?</h1>
+        </app-toolbar>
+      </app-header>
+
+      <app-drawer-layout id="drawerLayout">
+
+
+        <app-drawer>
+          <div id="drawer-content" class="drawer-content">
+            <content select="#drawer-sidemenu"></content>
+          </div>
+        </app-drawer>
+
+        <content select="#drawer-body"></content>
+
+
+      </app-drawer-layout>
+
+    </app-header-layout>
+
+
+
+
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'ch-appdrawer',
+
+      properties: {
+
+      },
+
+      attached: function() {
+
+        var drawerLayout = document.getElementById('drawerLayout');
+        var dc = document.getElementById('mainHeader');
+
+        // console.log('Is it open', drawerLayout.drawer.opened);
+
+        document.getElementById('toggle').addEventListener('tap', function() {
+          if (drawerLayout.forceNarrow || !drawerLayout.narrow) {
+            drawerLayout.forceNarrow = !drawerLayout.forceNarrow;
+
+          } else {
+            drawerLayout.drawer.toggle();
+          }
+        });
+
+        function changedrawerstate() {
+          var top = dc.getScrollState().top;
+          console.log(top);
+          if(top>=370 && !drawerLayout.drawer.opened) {
+            if (drawerLayout.forceNarrow || !drawerLayout.narrow) {
+              drawerLayout.forceNarrow = !drawerLayout.forceNarrow;
+            } else {
+              drawerLayout.drawer.open();
+            }
+          }
+          else if(top<370 && drawerLayout.drawer.opened) {
+            if (drawerLayout.forceNarrow || !drawerLayout.narrow) {
+              drawerLayout.forceNarrow = !drawerLayout.forceNarrow;
+            } else {
+              drawerLayout.drawer.close();
+            }
+          }
+        }
+
+
+        window.addEventListener('scroll', function() {
+          changedrawerstate();
+        });
+
+
+      }
+
+    });
+  </script>
+</dom-module>

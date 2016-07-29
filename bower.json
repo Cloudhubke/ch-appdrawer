@@ -1,0 +1,32 @@
+{
+  "name": "ch-appdrawer",
+  "version": "1.0.7",
+  "authors": [
+    "Gaithoben <gaithoben@gmail.com>"
+  ],
+  "description": "",
+  "keywords": [
+    "web-component",
+    "polymer",
+    "seed"
+  ],
+  "main": "ch-appdrawer.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/cloudhubke/ch-appdrawer/",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0",
+    "app-layout": "PolymerElements/app-layout#^0.10.1",
+    "ch-externallibraries": "cloudhubke/ch-externallibraries",
+    "semantic": "cloudhubke/semantic-ui#^2.2.2",
+    "paper-icon-button": "PolymerElements/paper-icon-button#^1.1.2",
+    "iron-list": "PolymerElements/iron-list#^1.3.5"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "^4.0.0"
+  }
+}
