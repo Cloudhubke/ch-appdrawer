@@ -152,7 +152,6 @@
         var dc = document.getElementById('mainHeader');
 
         setTimeout(function () {
-          console.log('Is it open', drawerLayout.drawer.opened);
           if(drawerLayout.drawer.opened){
             drawerLayout.drawer.close();
 
@@ -163,14 +162,7 @@
 
         }, 100);
 
-        document.getElementById('toggle').addEventListener('tap', function() {
-          if (drawerLayout.forceNarrow || !drawerLayout.narrow) {
-            drawerLayout.forceNarrow = !drawerLayout.forceNarrow;
 
-          } else {
-            drawerLayout.drawer.toggle();
-          }
-        });
 
         function changedrawerstate() {
           var top = dc.getScrollState().top;
